@@ -1,5 +1,4 @@
-import { series } from "./data";
-import { Serie } from "./series";
+import { series } from "./data.js";
 function renderSeriesInTable(seriesList) {
     const tableBody = document.getElementById("series-tbody");
     if (!tableBody) {
@@ -16,5 +15,21 @@ function renderSeriesInTable(seriesList) {
         tableBody.appendChild(row);
     });
 }
+function getSeasonsAverage(seriesList) {
+    let totalSeasons = 0;
+    seriesList.forEach((serie) => {
+        totalSeasons += serie.seasons;
+    });
+    return totalSeasons / seriesList.length;
+}
+function renderSeasonsAverage(seriesList) {
+    const averageElement = document.getElementById("seasons-average");
+    if (!averageElement) {
+        return;
+    }
+    const average = getSeasonsAverage(seriesList);
+    averageElement.innerHTML = `Seasons average: ${average.toFixed(2)}`;
+}
 renderSeriesInTable(series);
+renderSeasonsAverage(series);
 //# sourceMappingURL=main.js.map
