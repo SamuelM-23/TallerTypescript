@@ -37,7 +37,13 @@ function renderSeriesDetail(serie: Serie): void {
 
   detailContainer.innerHTML = `
     <div class="card">
-      <img src="${serie.poster}" class="card-img-top" alt="${serie.name} poster">
+      <img
+        src="${serie.poster}"
+        class="card-img-top"
+        alt="${serie.name} poster"
+        referrerpolicy="no-referrer"
+        onerror="this.onerror=null;this.src='https://placehold.co/600x900?text=Poster+not+available';"
+      >
       <div class="card-body">
         <h5 class="card-title">${serie.name}</h5>
         <p class="card-text">${serie.description}</p>
