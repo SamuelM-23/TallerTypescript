@@ -8,8 +8,11 @@ function renderSeriesInTable(seriesList: Serie[]): void {
     return;
   }
 
+  tableBody.innerHTML = "";
+
   seriesList.forEach((serie) => {
     const row = document.createElement("tr");
+    row.style.cursor = "pointer";
     row.innerHTML = `
       <td>${serie.id}</td>
       <td>${serie.name}</td>
@@ -17,8 +20,38 @@ function renderSeriesInTable(seriesList: Serie[]): void {
       <td>${serie.seasons}</td>
     `;
 
+    row.addEventListener("click", () => {
+      renderSeriesDetail(serie);
+    });
+
     tableBody.appendChild(row);
   });
+}
+
+function renderSeriesDetail(serie: Serie): void {
+  const detailContainer = document.getElementById("series-detail");
+
+  if (!detailContainer) {
+    return;
+  }
+
+  detailContainer.innerHTML = `
+    <div class="card">
+      <img src="${serie.poster}" class="card-img-top" alt="${serie.name} poster">
+      <div class="card-body">
+        <h5 class="card-title">${serie.name}</h5>
+        <p class="card-text">${serie.description}</p>
+        <a
+          href="${serie.webpage}"
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit website
+        </a>
+      </div>
+    </div>
+  `;
 }
 
 function getSeasonsAverage(seriesList: Serie[]): number {
@@ -44,3 +77,9 @@ function renderSeasonsAverage(seriesList: Serie[]): void {
 
 renderSeriesInTable(series);
 renderSeasonsAverage(series);
+
+const initialSerie = series[0];
+
+if (initialSerie) {
+  renderSeriesDetail(initialSerie);
+}
